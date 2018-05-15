@@ -1,0 +1,4 @@
+Resources:
+http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html
+http://www.enron-mail.com
+https://towardsdatascience.com/beyond-accuracy-precision-and-recall-3da06bea9f6c

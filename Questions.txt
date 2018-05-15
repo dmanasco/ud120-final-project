@@ -1,0 +1,41 @@
+1.	Summarize for us the goal of this project and how machine learning is useful in trying to accomplish it. As part of your answer, give some background on the dataset and how it can be used to answer the project question. Were there any outliers in the data when you got it, and how did you handle those?
+
+For this project the goal was simple, we were to examine the data of the enron emails corpus and try and classify a way for the machine to identify a potential person of interest from a set of values and behaviors. Enron was a Fortune 500 company before it collapsed due to corporate fraud. The learning that can be obtained from this dataset can be used for a multitude of things, from spam monitoring to fraud detection.
+
+There were three outliers in this dataset. After identifying the outliers I determined that I had to remove them. So I removed total, the travel agency in the park, and eugene lockhart.
+
+
+2.	What features did you end up using in your POI identifier, and what selection process did you use to pick them? Did you have to do any scaling? Why or why not? As part of the assignment, you should attempt to engineer your own feature that does not come ready-made in the dataset -- explain what feature you tried to make, and the rationale behind it. (You do not necessarily have to use it in the final analysis, only engineer and test it.) In your feature selection step, if you used an algorithm like a decision tree, please also give the feature importances of the features that you use, and if you used an automated feature selection function like SelectKBest, please report the feature scores and reasons for your choice of parameter values.
+
+For this project I ended up using ['salary', 'total_payments', 'bonus', 'total_stock_value', 'fraction_to_poi', 'exercised_stock_options', 'deferred_income', 'restricted_stock', 'long_term_incentive', 'combined_poi_communications']. I utilized the SelectKBest feature selection. 
+{'bonus': 20.792252047181535,
+'combined_poi_communications': 15.778960003994115,
+'deferred_income': 11.424891485418364,
+'exercised_stock_options': 22.348975407306217,
+'fraction_to_poi': 16.40971254803578,
+'long_term_incentive': 9.922186013189823,
+'restricted_stock': 8.831852742219493,
+'salary': 18.289684043404513,
+'total_payments': 9.283873618427373,
+'total_stock_value': 22.510549090242055}
+We can see that the top performing features are. We can see that total_stock_value is one of the biggest indicators, followed by bonus. Two features that I engineer actually showed up in kBest as combined_poi_communication and fraction_to_poi. 
+
+For my engineered fields, I decided that it would be a good idea to create fractions of the total communication that the person conversed with a poi. I started by taking the number of email to poi and divided it by total number of emails. I did this for the from emails as well. Last thing I did was add the two together to get a number that encompassed all POI communication. After feature engineering, two of my features are now in the top 10 list. This tells me that I was on the right track for adding the features on the dataset.
+
+3.	What algorithm did you end up using? What other one(s) did you try? How did model performance differ between algorithms?
+
+I ended up selecting the linear regression algorithm as it gave us the best precision and recall of all the algorithms that I tested. Linear Regression is used in a multitude of fields and I can see why. It is excellent at classifying people based on the data. It had a Precision value of .35 and a recall of .48 both are over the required .3 result. The other algorithms I tried didn’t get to the point where the recall and precision were above .3 so that tells me that they wouldn’t work. It was challenging because sometimes the Precision would be high but the recall low and vice versa. Balancing the two was definitely a challenge.
+
+4.	What does it mean to tune the parameters of an algorithm, and what can happen if you don’t do this well? How did you tune the parameters of your particular algorithm?
+
+Paramenter tuning is the process of adjusting the values given to the classifier. It changes the behavior of the classifier, allowing you to adjust it to your specific needs. There is a fine line while tuning, you don’t want to tune it too much because the classifier starts to get biased to your testing data.
+
+For this particular algorithm, I ended up passing values for tolerance, C, and random_state. The tolerance I went with was 0.00001 and the C value of 0.0002. the random state was 42 just to keep the results consistent through multiple test. 
+
+5.	What is validation, and what’s a classic mistake you can make if you do it wrong? How did you validate your analysis?
+
+Validation is a set of techniques to ensure that our classifier is accurate to the test data. A common mistake would be overtuning your classifier based on the training data then it doesn’t perform well on the test data. In order to ensure that I didn’t make a classic mistake, I made sure I continually tested the classifier against both sets of data. I wanted to make sure that I did this in order to keep the classifier working for any data in the corpus.
+
+6.	Give at least 2 evaluation metrics and your average performance for each of them.  Explain an interpretation of your metrics that says something human-understandable about your algorithm’s performance.
+
+For this project I focused on Precision and Recall. My average rating of precision was 0.353 and for recall was 0.477. Basically speaking, precision refers to the percentage that the classifier correctly identifies know POIs. So if the Classifier predicted 100 POIs the classifier would get it correct 35.3% of the time. Similarly Recall is POI’s correctly identified over the POI’s correctly identified plus POI’s not correctly labeled. Meaning with a recall rate of 47.7% that the classifier gets if correct 47.7% of the time but also misses the POI’s 52.3% of the time. 
