@@ -203,8 +203,6 @@ while (k<15):
   my_feature_list = [target_label] + best_features.keys()
   data = featureFormat(my_dataset, my_feature_list, sort_keys = True)
   labels, features = targetFeatureSplit(data)
-  scaler = preprocessing.MinMaxScaler()
-  features = scaler.fit_transform(features)
   l1_clf = Pipeline(steps=[
         ('scaler', StandardScaler()),
         ('classifier', LogisticRegression(tol = 0.00001, C = 0.0002, penalty = 'l2', random_state = 42))])
